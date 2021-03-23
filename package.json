@@ -1,0 +1,22 @@
+{
+  "name": "redditautomoderator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bazzatron19/RedditAutomoderator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bazzatron19/RedditAutomoderator/issues"
+  },
+  "homepage": "https://github.com/Bazzatron19/RedditAutomoderator#readme",
+  "dependencies": {
+    "rss-parser": "^3.12.0"
+  }
+}
