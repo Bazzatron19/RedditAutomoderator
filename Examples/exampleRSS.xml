@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <category term="handtools" label="r/handtools" />
+    <updated>2021-03-23T21:05:08+00:00</updated>
+    <icon>https://www.redditstatic.com/icon.png/</icon>
+    <id>/r/handtools/about/modqueue/.rss?feed=e5a3225c2e4e66e9c7e58ba0ff3109940747bc0f&amp;user=Bazzatron</id>
+    <link rel="self"
+        href="https://www.reddit.com/r/handtools/about/modqueue/.rss?feed=e5a3225c2e4e66e9c7e58ba0ff3109940747bc0f&amp;user=Bazzatron"
+        type="application/atom+xml" />
+    <link rel="alternate"
+        href="https://www.reddit.com/r/handtools/about/modqueue/?feed=e5a3225c2e4e66e9c7e58ba0ff3109940747bc0f&amp;user=Bazzatron"
+        type="text/html" />
+    <logo>https://a.thumbs.redditmedia.com/LzZtEcyuUHiDw6_C0mcQbAqQ3xXhm9474W2oOCtiuH4.jpg</logo>
+    <subtitle>This subreddit focuses on handtools for woodworking, both old and new.</subtitle>
+    <title>moderation queue</title>
+    <entry>
+        <author>
+            <name>/u/Bazzatron</name>
+            <uri>https://www.reddit.com/user/Bazzatron</uri>
+        </author>
+        <category term="handtools" label="r/handtools" />
+        <content type="html">&lt;!-- SC_OFF --&gt;&lt;div class=&quot;md&quot;&gt;&lt;p&gt;🍄&lt;/p&gt;
+            &lt;/div&gt;&lt;!-- SC_ON --&gt;</content>
+        <id>t1_grz3ir9</id>
+        <link
+            href="https://www.reddit.com/r/handtools/comments/mbfnzx/testing_post_lets_say_i_wanted_to_date_a_handplane/grz3ir9/" />
+        <updated>2021-03-23T21:04:46+00:00</updated>
+        <title>/u/Bazzatron on Testing post - let's say I wanted to date a handplane</title>
+    </entry>
+</feed>
