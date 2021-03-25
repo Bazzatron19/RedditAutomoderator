@@ -1,6 +1,9 @@
 const Parser = require('rss-parser');
+const fs = require('fs');
+const path = require('path');
 
 
+file = fs.readdirSync('./config.json');
 // TODO: parse config.json for all state variables
 
 
@@ -8,6 +11,12 @@ const Parser = require('rss-parser');
 
     // keep track of the most recent id identified in the queue
     let lastId = '';
+
+    //check for existing lastId
+    console.log("\nCurrent directory filenames:");
+    filenames.forEach(file => {
+      console.log(file);
+    });
 
     // iterate trhough all feed urls
         

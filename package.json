@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Bazzatron19/RedditAutomoderator#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "rss-parser": "^3.12.0"
   }
 }
