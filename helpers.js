@@ -32,7 +32,7 @@ class DiscordSender {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            };
+            }
         };
     };
 
