@@ -1,32 +1,35 @@
 const Parser = require('rss-parser');
 const fs = require('fs');
-const path = require('path');
+const helpers = require('./helpers');
 
-
-file = fs.readdirSync('./config.json');
-// TODO: parse config.json for all state variables
-
+const configPath = __dirname + '/config.json';
 
 (async () => {
+    const config = JSON.parse(fs.readFileSync(configPath));
+    const discordSender = new helpers.DiscordSender(config.discordWebhookUrl);
 
-    // keep track of the most recent id identified in the queue
     let lastId = '';
-
-    //check for existing lastId
-    console.log("\nCurrent directory filenames:");
-    filenames.forEach(file => {
-      console.log(file);
-    });
-
-    // iterate trhough all feed urls
+    do {
+        const parser = new Parser();
+        const feed = await parser.parseURL(config.feedUrl);
         
-    const parser = new Parser();
-    const feed = await parser.parseURL(feedUrl);
+        for (let i = 0; i < feed.items.length; ++i){
+            if (feed.items[i].guid === lastId || i === (feed.items.length - 1)) {
+                for (let a = i; a > 0; --a) {
+                    const item = feed.items[a];
+                    await helpers.sleep(2); // sleep between discord posts incase of rate limits
+                    await discordSender.send(await helpers.makeDiscordMessage(item));
+                };
+                break;
+            };
+        };
 
-    // iterate through feed items
-    for (let i = feed.items.length; i > 0; --i) {
-        const item = i-1;
-        console.log(JSON.stringify(feed.items[item].contentSnippet));
-    }
-
+        if (feed.items.length) {
+            lastId = feed.items[0].guid;
+        };
+        
+        console.log(`sleeping for ${config.sleepSeconds} seconds`);
+    
+    } while(await helpers.sleep(config.sleepSeconds));
+    
 })();
