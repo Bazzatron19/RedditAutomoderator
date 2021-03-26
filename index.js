@@ -1,6 +1,5 @@
 const Parser = require('rss-parser');
 const fs = require('fs');
-const https = require('https');
 const helpers = require('./helpers');
 
 const configPath = __dirname + '/config.json';
@@ -18,10 +17,8 @@ const configPath = __dirname + '/config.json';
             if (feed.items[i].guid === lastId || i === (feed.items.length - 1)) {
                 for (let a = i; a > 0; --a) {
                     const item = feed.items[a];
-                    
-                    console.log(item.contentSnippet);
-                    await helpers.sleep(2);
-                    await discordSender.send(item.contentSnippet);
+                    await helpers.sleep(2); // sleep between discord posts incase of rate limits
+                    await discordSender.send(await helpers.makeDiscordMessage(item));
                 };
                 break;
             };
@@ -33,6 +30,6 @@ const configPath = __dirname + '/config.json';
         
         console.log(`sleeping for ${config.sleepSeconds} seconds`);
     
-    } while(await helpers.sleep(config.sleepSeconds))
+    } while(await helpers.sleep(config.sleepSeconds));
     
 })();

@@ -1,12 +1,24 @@
 const https = require('https');
 
+const makeDiscordMessage = async function(item) {
+    return new Promise((resolve, reject) => {
+        const type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
+        const link = `[${item.title}](${item.link})`;
+
+        let message = type + ' - ' + link + '\n' + '```';
+        message += item.contentSnippet.substring(0, (2000 - (message.length + 4)));
+        message += '```-';
+
+        resolve(message);
+    });
+};
 
 const sleep =  async function(seconds) {
     return new Promise((resolve) => {
         setTimeout(
             () => { resolve(true) },
             seconds*1000
-        )
+        );
     });
 };
 
@@ -20,11 +32,9 @@ class DiscordSender {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            };
         };
-    }
-
-    // async sendMessage(message) 
+    };
 
     async send(message) {
         return new Promise((resolve, reject) => {
@@ -36,11 +46,11 @@ class DiscordSender {
 
                     res.on('data', (chunk) => {
                         chunks.push(chunk);
-                    })
+                    });
                     
                     res.on('error', (err) => {
                         reject(`Discord response callout error: ${err}`);
-                    })
+                    });
                     
                     res.on('end', () => {
                         console.log(`statuscode: ${res.statusCode}`)
@@ -51,24 +61,18 @@ class DiscordSender {
                         };
                     });
                 }
-                )
-                req.on('error', (err) => {
-                    reject(`Discord request callout error: ${err}`);
-                });
-                req.write(JSON.stringify({content: message.substring(0, 2000)}));
-                req.end();
-            })
-    }
-}
+            );
+            req.on('error', (err) => {
+                reject(`Discord request callout error: ${err}`);
+            });
+            req.write(JSON.stringify({content: message.substring(0, 2000)}));
+            req.end();
+        });
+    };
+};
 
-exports.sendDiscordMessage = async function(webhookUrl, message) {
-    return new Promise((resolve, reject) => {
-        https.request({
-
-        })
-    })
-}
 
 // exports
 exports.sleep = sleep;
+exports.makeDiscordMessage = makeDiscordMessage;
 exports.DiscordSender = DiscordSender;
