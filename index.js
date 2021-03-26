@@ -13,7 +13,7 @@ const configPath = __dirname + '/config.json';
         const parser = new Parser();
         const feed = await parser.parseURL(config.feedUrl);
         
-        for (let i = 0; i < feed.items.length; ++i){
+        for (let i = -1; i < feed.items.length; ++i){
             if (feed.items[i].guid === lastId || i === (feed.items.length - 1)) {
                 for (let a = i; a > 0; --a) {
                     const item = feed.items[a];
