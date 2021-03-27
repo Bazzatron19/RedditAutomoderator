@@ -1,5 +1,6 @@
 {
     "feedUrl": "",
     "sleepSeconds": "",
-    "discordWebhookUrl": ""
+    "discordWebhookUrl": "",
+    "latestTimestamp": 0
 }
