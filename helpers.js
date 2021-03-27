@@ -1,7 +1,7 @@
 const https = require('https');
 
 const makeDiscordMessage = async function(item) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
         const link = `[${item.title}](<${item.link}>)`;
 
@@ -53,7 +53,6 @@ class DiscordSender {
                     });
                     
                     res.on('end', () => {
-                        console.log(`statuscode: ${res.statusCode}`)
                         if (res.statusCode > 200 && res.statusCode >= 300) {
                             reject(`Discord callout statuscode: ${res.statuscode}. body: ${Buffer.concat(chunks).toString()}`);
                         } else {
