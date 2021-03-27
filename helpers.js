@@ -3,7 +3,7 @@ const https = require('https');
 const makeDiscordMessage = async function(item) {
     return new Promise((resolve, reject) => {
         const type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
-        const link = `[${item.title}](${item.link})`;
+        const link = `[${item.title}](<${item.link}>)`;
 
         let message = type + ' - ' + link + '\n' + '```';
         message += item.contentSnippet.substring(0, (2000 - (message.length + 4)));
