@@ -1,15 +1,27 @@
 const https = require('https');
 
 const makeDiscordMessage = async function(item) {
+
+
     return new Promise((resolve) => {
         const type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
         const link = `[${item.title}](<${item.link}>)`;
 
-        let message = type + ' - ' + link + '\n' + '```';
-        message += item.contentSnippet.substring(0, (2000 - (message.length + 4)));
+        let message = type + ' - ' + link + '\n';
+        message += item.isoDate.replace(/T|.000Z/g,' ').trim() + '\n' + '```';
+        var contentLink = item.content.match(/<span><a (?!<\/a>$)(.*?)(\[link\]<\/a>)/g).toString();
+
+        //TODO - examine contentLink and find out if links to reddit, or externally. Change message depending on findings.
+        message += contentLink.substring(15, contentLink.length - 12) + '\n';
+        message += item.contentSnippet.replace(/\[([link]+)\]|\[([comments]+)\]|  +/g,' ').trim().substring(0, (2000 - (message.length + 4)));
         message += '```-';
 
+        if(!null === type){
+            console.log('testing worked');
+        }
+
         resolve(message);
+
     });
 };
 
@@ -53,6 +65,7 @@ class DiscordSender {
                     });
                     
                     res.on('end', () => {
+                        console.log(`statuscode: ${res.statusCode}`)
                         if (res.statusCode > 200 && res.statusCode >= 300) {
                             reject(`Discord callout statuscode: ${res.statuscode}. body: ${Buffer.concat(chunks).toString()}`);
                         } else {

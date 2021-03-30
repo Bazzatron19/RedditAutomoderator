@@ -4,6 +4,7 @@ const helpers = require('./helpers');
 
 const configPath = __dirname + '/config.json';
 
+//TODO - add error handling for RSS feed not being available.
 (async () => {
     const config = JSON.parse(fs.readFileSync(configPath));
     const discordSender = new helpers.DiscordSender(config.discordWebhookUrl);
