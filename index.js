@@ -49,7 +49,7 @@ const configPath = __dirname + '/config.json';
             };
         };
 
-        console.log(`sleeping for ${config.sleepSeconds} seconds`);
+        // console.log(`sleeping for ${config.sleepSeconds} seconds`);
 
     } while(await helpers.sleep(config.sleepSeconds));
     

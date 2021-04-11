@@ -4,21 +4,36 @@ const makeDiscordMessage = async function(item) {
 
 
     return new Promise((resolve) => {
-        const type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
+        console.log(item.title.toString());
+        var type = item.title.startsWith('/u/') ? 'Comment' : 'Post';
         const link = `[${item.title}](<${item.link}>)`;
+        console.log(type);
+
+        if(type == 'Post'){
+            //gets content for message where link type posts
+            if(item.content.toString().length != 0){
+                //janky regex on html, pls no kill.
+                //https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454
+                var contentLink = item.content.match(/<span><a (?!<\/a>$)(.*?)(\[link\]<\/a>)/g).toString();
+                var contentLinkTrimmed = contentLink.substring(15, contentLink.length - 12);
+                console.log(contentLinkTrimmed);
+            }
+
+            if(item.link != contentLinkTrimmed){
+                console.log('item.link != contentLinkTrimmed')
+                //link post OR comment
+                type = 'Link';
+            }
+
+        }
+
+        console.log('Submission of type ' + type + ' detected');
 
         let message = type + ' - ' + link + '\n';
         message += item.isoDate.replace(/T|.000Z/g,' ').trim() + '\n' + '```';
-        var contentLink = item.content.match(/<span><a (?!<\/a>$)(.*?)(\[link\]<\/a>)/g).toString();
-
-        //TODO - examine contentLink and find out if links to reddit, or externally. Change message depending on findings.
-        message += contentLink.substring(15, contentLink.length - 12) + '\n';
+        type.match('Link') ? message += 'Linked to: ' + contentLinkTrimmed + '\n' : message += 'Wrote the following: ' + '\n';
         message += item.contentSnippet.replace(/\[([link]+)\]|\[([comments]+)\]|  +/g,' ').trim().substring(0, (2000 - (message.length + 4)));
         message += '```-';
-
-        if(!null === type){
-            console.log('testing worked');
-        }
 
         resolve(message);
 
